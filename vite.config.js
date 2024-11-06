@@ -4,5 +4,5 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base:'https://makaiabootcamp.github.io/contraverso-project-frontend-7' 
+  base:'https://rojasofia.github.io/contraverso' 
 })
