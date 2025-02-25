@@ -2,6 +2,7 @@ import styled from "styled-components";
 import "../../../fonts/fonts.css";
 import AprendeBienvenida from "../../components/AprendeComponents/AprendeBienvenida/AprendeBienvenida";
 import AprendeJuega from "../../components/AprendeComponents/AprendeJuega/AprendeJuega";
+import Infografias from "../../components/AprendeComponents/Infografias";
 
 const StyledAprende = styled.div`
   background-color: #000000;
@@ -15,6 +16,7 @@ const Aprende = () => {
       <StyledAprende>
           <AprendeBienvenida/>
           <AprendeJuega/>
+          <Infografias/>
       </StyledAprende>
   )
 };
