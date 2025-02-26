@@ -65,7 +65,7 @@ const CustomSlider = styled(Slider)`
     font-size: 40px;
     border-radius: 55%;
     transition: transform 0.3s ease;
-    color: #e94430;
+    color: #d977c8;
     @media (max-width: 800px) {
       font-size: 20px;
     }
@@ -73,7 +73,7 @@ const CustomSlider = styled(Slider)`
 
   .slick-prev:hover:before,
   .slick-next:hover:before {
-    color: #e94430;
+    color: #d977c8;
     transform: rotate(-180deg);
     font-size: 45px;
     @media (max-width: 800px) {
@@ -84,7 +84,7 @@ const CustomSlider = styled(Slider)`
   .actionButtons {
     display: flex;
     margin-top: 20px;
-    color: #e94430;
+    color: #d977c8;
     font-size: 25px;
     gap: 10px;
   }
@@ -97,7 +97,8 @@ const StyledDescription = styled.p`
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  background-color: #1df0c22f;
+  background-color: #d977c942;
+  text-align: center;
   margin-top: 5%;
   margin-bottom: 5%;
   border-radius: 5%;
@@ -163,15 +164,14 @@ const CarruselInfografias = () => {
   const { isAuthenticated } = useSelector((store) => store.userAuth);
   const [selectedInfografia, setSelectedInfografia] = useState(null);
 
-useEffect(() => {
-  console.log("Obteniendo infografías...");
-  dispatch(actionGetInfografias());
-}, [dispatch]);
+  useEffect(() => {
+    console.log("Obteniendo infografías...");
+    dispatch(actionGetInfografias());
+  }, [dispatch]);
 
-useEffect(() => {
-  console.log("Datos de infografías:", infografias);
-}, [infografias]);
-
+  useEffect(() => {
+    console.log("Datos de infografías:", infografias);
+  }, [infografias]);
 
   const settings = {
     infinite: true,
@@ -199,8 +199,12 @@ useEffect(() => {
     ],
   };
 
-  const handleImageClick = (url) => {
-    window.open(url, "_blank");
+  const handleImageClick = (infografia) => {
+    setSelectedInfografia(infografia);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedInfografia(null);
   };
 
   const openModal = () => {
@@ -252,7 +256,11 @@ useEffect(() => {
         {infografias.map((infografia, index) => (
           <div key={index}>
             <div className="slick-slide-content">
-              <img src={infografia.poster} alt={`Poster ${index + 1}`} />
+              <img
+                src={infografia.poster}
+                alt={`Poster ${index + 1}`}
+                onClick={() => handleImageClick(infografia)}
+              />
               <StyledDescription>{infografia.title}</StyledDescription>
               {isAuthenticated ? (
                 <>
@@ -260,11 +268,13 @@ useEffect(() => {
                     <AiFillDelete
                       alt="eliminar"
                       onClick={(e) => {
+                        e.stopPropagation(); // Evita que el clic en el botón active el modal de previsualización
                         handleDeleteClick(infografia.id);
                       }}
                     />
                     <FaEdit
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation(); // Evita que el clic en el botón active el modal de previsualización
                         openModalEdit(infografia);
                       }}
                       alt="editar"
@@ -276,6 +286,31 @@ useEffect(() => {
           </div>
         ))}
       </CustomSlider>
+      {/* Modal de Previsualización */}
+      {selectedInfografia && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0,0,0,0.7)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            cursor: "pointer",
+            zIndex: 3,
+          }}
+          onClick={handleCloseModal}
+        >
+          <img
+            src={selectedInfografia.poster}
+            alt={selectedInfografia.title}
+            style={{ maxWidth: "90%", maxHeight: "90%" }}
+          />
+        </div>
+      )}
     </CarouselContainer>
   );
 };
