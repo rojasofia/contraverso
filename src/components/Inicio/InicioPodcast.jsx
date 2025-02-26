@@ -106,7 +106,7 @@ const InicioPodcast = () => {
           src="https://res.cloudinary.com/dvafjaqbd/image/upload/v1714336884/MONTAJE/INICIO/1-disfruta-podcast_qwavks.png"
           alt="Texto podcast"
         ></StyledText>
-        <StyledButtonEscuchar to="https://discord.gg/tCqfzHWGCV">ESCUCHAR</StyledButtonEscuchar>
+        <StyledButtonEscuchar to="https://open.spotify.com/show/1RcXt6485XC12WaVUMnzmU?si=c70e366d0ab64c64">ESCUCHAR</StyledButtonEscuchar>
       </StyledTextContainer>
     </StyledInicioPodcast>
   );
