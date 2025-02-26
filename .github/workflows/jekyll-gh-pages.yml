@@ -40,7 +40,7 @@ jobs:
         uses: actions/configure-pages@v4  # Actualizado a v4
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4  # Ya está en la versión más reciente
+        uses: actions/upload-pages-artifact@v3  # Ya está en la versión más reciente
         with:
           path: './dist' # asegúrate que este sea el directorio de build de tu proyecto
 
