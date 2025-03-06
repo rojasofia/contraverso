@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { actionEditInfo } from "../../../app/infografias/infografiasActions";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import Swal from "sweetalert2";
+import { actionAddTaller } from "../../../app/talleres/talleresActions";
 
 const SyledModal = styled.div`
   position: fixed;
@@ -79,11 +79,11 @@ const SyledModal = styled.div`
         flex-direction: column;
         width: 100%;
 
-        .containInfo {
+        .containTaller {
           display: flex;
           margin: 30px;
 
-          .info {
+          .taller {
             display: flex;
             flex-direction: column;
 
@@ -94,7 +94,7 @@ const SyledModal = styled.div`
               font-weight: bold;
             }
 
-            .infoImg {
+            .tallerImg {
               font-family: "Filson Pro Book";
               border-radius: 1rem;
               font-size: 90%;
@@ -110,7 +110,6 @@ const SyledModal = styled.div`
               font-family: "Filson Pro Book";
               position: relative;
               display: inline-block;
-              height: 20vh;
             }
             .selecImg::before {
               background-color: #d977c8;
@@ -121,14 +120,14 @@ const SyledModal = styled.div`
               border-radius: 1rem;
               content: "Seleccionar"; /* testo por defecto */
               position: absolute;
-              padding: 6px;
-              width: 84%;
+              padding: 5px;
+              width: 75%;
             }
 
             .selecImg input[type="file"] {
               opacity: 0;
               width: 200px;
-              height: 332px;
+              height: 32px;
               display: inline-block;
             }
 
@@ -165,38 +164,26 @@ const SyledModal = styled.div`
   }
 `;
 
-export const EditInfografia = ({ onClose, initialData }) => {
+export const AddTaller = ({ onClose }) => {
   const dispatch = useDispatch();
-  const [selectedFile, setSelectedFile] = useState(initialData?.file || null);
-  const [title, setTitle] = useState(initialData?.title || "");
-  const [description, setDescription] = useState(
-    initialData?.description || ""
-  );
-  const [url, setUrl] = useState(initialData?.url || "");
-
-  const infografiaForEdit = useSelector(
-    (state) => state.infografias.infografiaForEdit
-  );
-
-  useEffect(() => {
-    if (infografiaForEdit) {
-      setSelectedFile(infografiaForEdit.file || null);
-      setTitle(infografiaForEdit.title || "");
-      setDescription(infografiaForEdit.description || "");
-    }
-  }, [infografiaForEdit]);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState("");
+  const [url, setUrl] = useState("");
 
   const onFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
+    // Actualizar la previsualización de la imagen
     updateImagePreview(event.target.files[0]);
   };
 
-  const onTitleChange = (event) => {
-    setTitle(event.target.value);
-  };
 
   const onDescriptionChange = (event) => {
     setDescription(event.target.value);
+  };
+  
+  const onTitleChange = (event) => {
+    setTitle(event.target.value);
   };
 
   const onUrlChange = (event) => {
@@ -205,19 +192,15 @@ export const EditInfografia = ({ onClose, initialData }) => {
 
   const onFormSubmit = async (event) => {
     event.preventDefault();
-    if (initialData) {
+    if (selectedFile  && title) {      
       try {
-        const editData = {};
-        if (selectedFile) editData.file = selectedFile;
-        if (title) editData.title = title;
-        dispatch(actionEditInfo(initialData.id, { ...editData }));
+        await dispatch(actionAddTaller({ file: selectedFile, title }));
         setSelectedFile(null);
         setTitle("");
         document.getElementById("preview").src = "";
-        onClose();
         Swal.fire({
           icon: "success",
-          title: "¡Imagen editada correctamente!",
+          title: "¡Has subido un foto/taller correctamente!",
           showConfirmButton: false,
           timer: 2500,
         }).finally(() => {
@@ -226,8 +209,6 @@ export const EditInfografia = ({ onClose, initialData }) => {
       } catch (error) {
         console.error(error);
       }
-    } else {
-      console.error("initialData is null or not properly initialized.");
     }
   };
 
@@ -246,14 +227,14 @@ export const EditInfografia = ({ onClose, initialData }) => {
           X
         </button>
         <div className="contenidoModal">
-          <h1> EDITAR INFOGRAFIA</h1>
-          <p>¡LISTA PARA ACTUALIZAR!</p>
+          <h1>TALLERES</h1>
+          <p>¡LISTO PARA PUBLICAR!</p>
           <form onSubmit={onFormSubmit}>
-            <div className="containInfo">
-              <div className="info">
+            <div className="containTaller">
+              <div className="taller">
                 <label htmlFor="title">Título:</label>
                 <input
-                className="infoImg"
+                  className="TallerImg"
                   type="text"
                   id="title"
                   value={title}
@@ -261,17 +242,15 @@ export const EditInfografia = ({ onClose, initialData }) => {
                   required
                 />
                 <label htmlFor="file">Seleccionar imagen:</label>
-                <input type="file" id="file" onChange={onFileChange} />
+                <div className="selecImg"><input type="file" id="file" onChange={onFileChange} required /></div>
               </div>
               <div className="imagePrev">
-                <img
-                  id="preview"
-                  style={{ width: "200px", height: "auto" }}
-                />
+                <img id="preview" style={{ width: "200px", height: "auto" }} />
               </div>
             </div>
+
             <span>
-              <button type="submit">ACTUALIZAR</button>
+              <button type="submit">SUBIR IMAGEN</button>
             </span>
           </form>
         </div>

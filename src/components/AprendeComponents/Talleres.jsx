@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import CarruselInfografias from './CarruselInfografias/CarruselInfografias'
+import CarruselTalleres from './Talleres/CarruselTalleres'
 
-const StyledInfografias = styled.div`
+const StyledTalleres = styled.div`
 background-image: url("https://res.cloudinary.com/dvafjaqbd/image/upload/v1714336860/MONTAJE/CONFRONTA/14_h5r9za.png");
 background-size: 100% 100%;
 background-repeat: no-repeat;
@@ -61,10 +61,10 @@ position: relative;
 `
 
 const StyledIcono = styled.img`
-align-self: flex-start;
+align-self: flex-end;
 bottom:0;
-right: 0;
-width: 30%;
+left: 0;
+width: 20%;
 position: absolute;
 z-index: 2;
 
@@ -76,19 +76,19 @@ z-index: 2;
 }
 `
 
-const Infografias = () => {
+const Talleres = () => {
   return (
-    <StyledInfografias>
+    <StyledTalleres>
       <StyledTitle>
         <StyledBgTitle src='https://res.cloudinary.com/dvafjaqbd/image/upload/v1714336877/MONTAJE/EXPRESA/4-4_SUBR_nnp6gv.png'></StyledBgTitle>
-        <StyledTextTitle>INFOGRAFíAS</StyledTextTitle>
+        <StyledTextTitle>TALLERES</StyledTextTitle>
       </StyledTitle>
       <StyledContainer>
-        <CarruselInfografias></CarruselInfografias>
-        <StyledIcono src='https://res.cloudinary.com/dvafjaqbd/image/upload/v1714336869/MONTAJE/CONFRONTA/3-2_gzomsf.png'></StyledIcono>
+        <CarruselTalleres></CarruselTalleres>
+        <StyledIcono src='https://res.cloudinary.com/dvafjaqbd/image/upload/v1741041367/MONTAJE/APRENDE/GATO_CEJA_COLOR_s5cd3f.png'></StyledIcono>
       </StyledContainer>
-    </StyledInfografias>
+    </StyledTalleres>
   )
 }
 
-export default Infografias
+export default Talleres

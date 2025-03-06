@@ -7,6 +7,7 @@ import articulosReducer from './articulos/articulosSlice.js'
 import procesoReducer from "./proceso/procesoSlice.js"
 import valoraReducer from "./valora/valoraSlice.js"
 import infografiasReducer from "./infografias/infografiasSlice.js"
+import talleresReducer from "./talleres/talleresSlice.js"
 
 const store = configureStore({
   reducer:  {
@@ -17,7 +18,8 @@ const store = configureStore({
     proceso: procesoReducer,
     fanzines: fanzineReducer,
     valora: valoraReducer,
-    infografias: infografiasReducer
+    infografias: infografiasReducer,
+    talleres: talleresReducer
   },
   devTools: process.env.NODE_ENV !== "production",
 });

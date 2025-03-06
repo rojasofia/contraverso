@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  actionDeleteInfo,
-  actionGetInfografias,
-} from "../../../app/infografias/infografiasActions";
+  actionDeleteTaller,
+  actionGetTalleres,
+} from "../../../app/talleres/talleresActions";
 import Slider from "react-slick";
 import styled from "styled-components";
 import { MdAddToPhotos } from "react-icons/md";
-import { AddInfografia } from "./AddInfografia";
+import { AddTaller } from "./AddTaller";
 import { FaEdit } from "react-icons/fa";
-import { EditInfografia } from "./EditInfografia";
+import { EditTaller } from "./EditTaller";
 import { AiFillDelete } from "react-icons/ai";
 
 const CarouselContainer = styled.div`
@@ -156,22 +156,22 @@ const StyledButtonAdd = styled.button`
   }
 `;
 
-const CarruselInfografias = () => {
+const CarruselTalleres = () => {
   const dispatch = useDispatch();
-  const infografias = useSelector((store) => store.infografias.infografias);
+  const talleres = useSelector((store) => store.talleres.talleres);
   const [showModal, setShowModal] = useState(false);
   const [showModalEdit, setShowModalEdit] = useState(false);
   const { isAuthenticated } = useSelector((store) => store.userAuth);
-  const [selectedInfografia, setSelectedInfografia] = useState(null);
+  const [selectedTaller, setSelectedTaller] = useState(null);
 
   useEffect(() => {
-    console.log("Obteniendo infografías...");
-    dispatch(actionGetInfografias());
+    console.log("Obteniendo Talleres...");
+    dispatch(actionGetTalleres());
   }, [dispatch]);
 
   useEffect(() => {
-    console.log("Datos de infografías:", infografias);
-  }, [infografias]);
+    console.log("Datos de Talleres:", talleres);
+  }, [talleres]);
 
   const settings = {
     infinite: true,
@@ -199,12 +199,16 @@ const CarruselInfografias = () => {
     ],
   };
 
-  const handleImageClick = (infografia) => {
-    setSelectedInfografia(infografia);
+  const handleImageClick = (taller) => {
+    setSelectedTaller(taller);
+  };
+
+  const handleUrlClick = (url) => {
+    window.open(url, "_blank");
   };
 
   const handleCloseModal = () => {
-    setSelectedInfografia(null);
+    setSelectedTaller(null);
   };
 
   const openModal = () => {
@@ -215,18 +219,18 @@ const CarruselInfografias = () => {
     setShowModal(false);
   };
 
-  const openModalEdit = (infografia) => {
+  const openModalEdit = (taller) => {
     setShowModalEdit(true);
-    setSelectedInfografia({ ...infografia, id: infografia.id });
+    setSelectedTaller({ ...taller, id: taller.id });
   };
 
   const closeModalEdit = () => {
     setShowModalEdit(false);
-    setSelectedInfografia(null);
+    setSelectedTaller(null);
   };
 
   function handleDeleteClick(id) {
-    dispatch(actionDeleteInfo(id));
+    dispatch(actionDeleteTaller(id));
   }
 
   return (
@@ -236,16 +240,16 @@ const CarruselInfografias = () => {
           <div>
             <StyledButtonAdd onClick={openModal}>
               <MdAddToPhotos className="iconAdd" />
-              AÑADIR INFOGRAFIA
+              AÑADIR TALLER
             </StyledButtonAdd>
             <div className="modalImg">
-              {showModal && <AddInfografia onClose={closeModal} />}
+              {showModal && <AddTaller onClose={closeModal} />}
             </div>
             <div className="modalImg">
               {showModalEdit && (
-                <EditInfografia
+                <EditTaller
                   onClose={closeModalEdit}
-                  initialData={selectedInfografia}
+                  initialData={selectedTaller}
                 />
               )}
             </div>
@@ -253,15 +257,18 @@ const CarruselInfografias = () => {
         </>
       ) : null}
       <CustomSlider {...settings}>
-        {infografias.map((infografia, index) => (
+        {talleres.map((taller, index) => (
           <div key={index}>
             <div className="slick-slide-content">
               <img
-                src={infografia.poster}
+                src={taller.poster}
                 alt={`Poster ${index + 1}`}
-                onClick={() => handleImageClick(infografia)}
+                onClick={() => handleImageClick(taller)}
               />
-              <StyledDescription>{infografia.title}</StyledDescription>
+              <StyledDescription>{taller.title}</StyledDescription>
+              <StyledButton onClick={() => handleUrlClick(taller.url)}>
+                SABER MÁS
+              </StyledButton>
               {isAuthenticated ? (
                 <>
                   <div className="actionButtons">
@@ -269,13 +276,13 @@ const CarruselInfografias = () => {
                       alt="eliminar"
                       onClick={(e) => {
                         e.stopPropagation(); // Evita que el clic en el botón active el modal de previsualización
-                        handleDeleteClick(infografia.id);
+                        handleDeleteClick(taller.id);
                       }}
                     />
                     <FaEdit
                       onClick={(e) => {
                         e.stopPropagation(); // Evita que el clic en el botón active el modal de previsualización
-                        openModalEdit(infografia);
+                        openModalEdit(taller);
                       }}
                       alt="editar"
                     />
@@ -287,7 +294,7 @@ const CarruselInfografias = () => {
         ))}
       </CustomSlider>
       {/* Modal de Previsualización */}
-      {selectedInfografia && (
+      {selectedTaller && (
         <div
           style={{
             position: "fixed",
@@ -305,8 +312,8 @@ const CarruselInfografias = () => {
           onClick={handleCloseModal}
         >
           <img
-            src={selectedInfografia.poster}
-            alt={selectedInfografia.title}
+            src={selectedTaller.poster}
+            alt={selectedTaller.title}
             style={{ maxWidth: "90%", maxHeight: "90%" }}
           />
         </div>
@@ -315,4 +322,4 @@ const CarruselInfografias = () => {
   );
 };
 
-export default CarruselInfografias;
+export default CarruselTalleres;

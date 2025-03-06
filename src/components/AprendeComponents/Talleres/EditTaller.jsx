@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionEditInfo } from "../../../app/infografias/infografiasActions";
+import { actionEditTaller } from "../../../app/talleres/talleresActions";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 
@@ -165,7 +165,7 @@ const SyledModal = styled.div`
   }
 `;
 
-export const EditInfografia = ({ onClose, initialData }) => {
+export const EditTaller = ({ onClose, initialData }) => {
   const dispatch = useDispatch();
   const [selectedFile, setSelectedFile] = useState(initialData?.file || null);
   const [title, setTitle] = useState(initialData?.title || "");
@@ -174,17 +174,17 @@ export const EditInfografia = ({ onClose, initialData }) => {
   );
   const [url, setUrl] = useState(initialData?.url || "");
 
-  const infografiaForEdit = useSelector(
-    (state) => state.infografias.infografiaForEdit
+  const tallerForEdit = useSelector(
+    (state) => state.talleres.tallerForEdit
   );
 
   useEffect(() => {
-    if (infografiaForEdit) {
-      setSelectedFile(infografiaForEdit.file || null);
-      setTitle(infografiaForEdit.title || "");
-      setDescription(infografiaForEdit.description || "");
+    if (tallerForEdit) {
+      setSelectedFile(tallerForEdit.file || null);
+      setTitle(tallerForEdit.title || "");
+      setDescription(tallerForEdit.description || "");
     }
-  }, [infografiaForEdit]);
+  }, [tallerForEdit]);
 
   const onFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -210,7 +210,7 @@ export const EditInfografia = ({ onClose, initialData }) => {
         const editData = {};
         if (selectedFile) editData.file = selectedFile;
         if (title) editData.title = title;
-        dispatch(actionEditInfo(initialData.id, { ...editData }));
+        dispatch(actionEditTaller(initialData.id, { ...editData }));
         setSelectedFile(null);
         setTitle("");
         document.getElementById("preview").src = "";
@@ -246,7 +246,7 @@ export const EditInfografia = ({ onClose, initialData }) => {
           X
         </button>
         <div className="contenidoModal">
-          <h1> EDITAR INFOGRAFIA</h1>
+          <h1> EDITAR TALLER</h1>
           <p>¡LISTA PARA ACTUALIZAR!</p>
           <form onSubmit={onFormSubmit}>
             <div className="containInfo">

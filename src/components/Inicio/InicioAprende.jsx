@@ -44,6 +44,7 @@ const StyledButtonAprende = styled(NavLink)`
   width: 10rem;
   font-size: 1em;
   text-align: center;
+  margin: 0.4rem;
 
   @media screen and (max-width: 480px) {
     width: 30%;
@@ -70,6 +71,8 @@ const InicioAprende = () => {
         alt="Título Aprende"
       ></StyledImgTitle>
       <StyledButtonAprende to="aprende">JUEGOS</StyledButtonAprende>
+      <StyledButtonAprende to="aprende">TALLERES</StyledButtonAprende>
+      <StyledButtonAprende to="aprende">INFOGRAFÍAS</StyledButtonAprende>
       <StyledImgIcono
         src="https://res.cloudinary.com/dvafjaqbd/image/upload/v1714336883/MONTAJE/INICIO/1-6_cuinau.png"
         alt="Icono Aprende"

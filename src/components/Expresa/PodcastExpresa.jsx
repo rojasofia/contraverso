@@ -161,7 +161,7 @@ const PodcastExpresa = () => {
             src="https://res.cloudinary.com/dvafjaqbd/image/upload/v1714336876/MONTAJE/EXPRESA/4-2_SPOTI_xhfnyj.png"
             alt="Imagen spotify"
           ></StyleSpotifyImg>
-          <StyledBotonExpresa to="https://discord.gg/tCqfzHWGCV">
+          <StyledBotonExpresa to="https://open.spotify.com/show/1RcXt6485XC12WaVUMnzmU?si=82a85a80dd404130">
             ESCUCHAR
           </StyledBotonExpresa>
         </StyledBtnContainer>
