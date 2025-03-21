@@ -5,12 +5,10 @@
     <title>Redireccionando...</title>
     <script type="text/javascript">
       var l = window.location;
-      l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/?' +
-        l.pathname.slice(1).replace(/&/g, '~and~') +
-        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        l.hash
-      );
+      var origin = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '');
+      var path = l.pathname.replace(/\/+$/, ''); // Elimina barras al final
+      var newUrl = origin + '/?' + path + l.search + l.hash;
+      window.location.replace(newUrl);
     </script>
   </head>
   <body>
