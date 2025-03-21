@@ -8,7 +8,7 @@ import  store from "./app/store.js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <BrowserRouter basename='/contraverso'>
+    <BrowserRouter basename='/'>
       <AppRouter />
     </BrowserRouter>
   </Provider>
