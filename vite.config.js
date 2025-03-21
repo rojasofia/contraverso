@@ -12,5 +12,5 @@ export default defineConfig({
       }
     }
   },
-  base:'https://contraverso.org' 
+  base:'https://rojasofia.github.io/contraverso' 
 })
